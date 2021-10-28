@@ -25,9 +25,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update && sudo apt install -y --no-install-recommends ca-certificates python3 wget && wget "https://github.com/tetrane/dependencies_installer/raw/master/installer.py" && chmod +x installer.py
-          ./installer.py $(find . -wholename "*dependencies/dev")
+          sudo apt update && sudo apt install -y binutils build-essential
+          wget -O - https://sh.rustup.rs | sh -s -- -y -q
           source $HOME/.cargo/env
+          cargo install --version "0.4.13" mdbook
+          cargo install --version "0.4.0" mdbook-tera
+
  
       - name: Build the book
         run: mdbook build
